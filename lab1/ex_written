@@ -1,0 +1,6 @@
+Plotted specified functions on MATLAB (unsure how to submit file).
+Observed that polynomials with greater power increase more quickly than polynomials with less power after a certain point, to infinity 
+Exponential functions end up increasing at a faster rate than polynomials after a certain point -> for large numbers
+Logarithmic functions increase very slowly for big numbers 
+Linear functions increase at a constant rate 
+Linear logarithmic functions appear to increase at a linear rate for big numbers 

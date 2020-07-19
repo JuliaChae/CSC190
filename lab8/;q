@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+   int *store;
+   unsigned int size;
+   unsigned int end;
+   int (*compare)(int x, int y);
+} intHeap_T;
+
+int store(intHeap_T* heap, int value){
+   int parent=0;
+   int temp = 0;
+   int index = 0;
+   if (heap==NULL){return -1;}
+   (heap->end) = (heap->end) + 1; 
+   if (((heap->end)+1)>(heap->size)) {return -1;}
+   index = (heap->end); 
+   (heap->store)[heap->end] = value;
+   while(parent != 0){
+      if (index%2==1){
+         parent = (index -1)/2;
+      } else{
+         parent = (index -2)/2; 
+      }         
+      if (heap->compare((heap->store)[index],(heap->store)[parent])==0){
+         temp = (heap->store)[parent];
+         (heap->store)[parent]=(heap->store)[index];
+         (heap->store)[index]=temp; 
+         index = parent; 
+      }
+   }
+   return 0; 
+}
+
+int retrieve(intHeap_T* heap, int *rvalue){
+   int leftC = 0;
+   int rightC =0;
+   int index = 0;
+   int swapindex = 0;
+   int temp= 0;
+   *rvalue = (heap->store)[0];
+   //if (pHeap->end == 0){ (pHeap->end) = (pHeap->end)-1; return 0; }
+   (heap->store)[0] = (heap->store)[heap->end];     
+   (heap->end)=(heap->end)-1;
+   while (1){
+      if (index*2+1> (heap->end)) { break;}
+      if (index*2+1 <=(heap->end)){ leftC = index*2 +1;} 
+      if (index*2+2 < (heap->end)) { rightC = index*2 +2;} else {rightC = -1;}
+      if (rightC == -1){
+         swapindex = leftC;}
+      else if (heap->compare((heap->store)[leftC],(heap->store)[rightC])==0){
+         swapindex = leftC;}
+      else { 
+         swapindex = rightC;}
+      if (heap->compare((heap->store)[index],(heap->store)[swapindex])==1){
+         temp = (heap->store)[swapindex];
+         (heap->store)[swapindex] = (heap->store)[index];
+         (heap->store)[index] = temp;
+         index = swapindex;
+      }else {
+         break; }
+   }
+   return 0;
+}
+
+int lt(int x, int y){
+   if (x<y){ return 1; }
+   else { return 0; }
+}
+
+int gt(int x, int y){
+   if (x>y){ return 1;}
+   else {return 0;} 
+}
+ 
+int main(void){
+   intHeap_T heap;
+   int rval;
+   int i=0;
+   heap.store=(int*)malloc(1000*sizeof(int));
+   heap.size=1000;
+   heap.end =0;
+   heap.compare = lt;
+   store(&heap,3);
+   store(&heap,4);
+   store(&heap,5);
+   store(&heap,1);
+   for (i=0;i<5;i++){
+      printf("%d",heap.store[i]);
+   }
+   retrieve(&heap,&rval);
+   printf("%d",rval); 
+}

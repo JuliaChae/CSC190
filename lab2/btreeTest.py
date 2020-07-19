@@ -1,0 +1,15 @@
+from binary_tree import *
+
+a = binary_tree("A")
+b = binary_tree("B")
+e = binary_tree("E")
+c = binary_tree("C")
+e.AddRight(binary_tree("F"))
+b.AddLeft(e)
+c.AddRight(binary_tree("D"))
+b.AddRight(c)
+a.AddLeft(b)
+a.Print_tree("")
+a.Get_LevelOrder()
+b = a.ConvertToTree()
+b.Print_DepthFirst()
